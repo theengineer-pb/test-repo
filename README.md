@@ -7,6 +7,12 @@ A complete DevSecOps implementation automating CI/CD with
 integrated security scanning, infrastructure provisioning, 
 and monitoring on Google Cloud Platform.
 
+> **Note:** The GKE cluster and application are currently 
+> inactive to avoid ongoing GCP costs. All infrastructure 
+> can be reprovisioned in minutes by running Pipeline 2 
+> (Terraform Apply). The complete pipeline, codebase, and 
+> architecture are fully documented below.
+
 ## Architecture Overview
 
 ```
