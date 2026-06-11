@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')
+    }
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose action: apply to create resources, destroy to delete them')
+    }
+    
+    stage('Checkout Code') {
+    steps {
+        withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]) {
+            sh '''
+                git clone https://theengineer-pb:${TOKEN}@github.com/theengineer-pb/test-repo.git .
+            '''
+        }
+    }
+}
+        stage('Terraform Init') {
+            steps {
+                dir('gke-terraform') {
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform Plan') {
+            when { expression { params.ACTION == 'apply' } }
+            steps {
+                dir('gke-terraform') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Terraform Apply') {
+            when { expression { params.ACTION == 'apply' } }
+            steps {
+                dir('gke-terraform') {
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+        stage('Terraform Destroy') {
+            when { expression { params.ACTION == 'destroy' } }
+            steps {
+                dir('gke-terraform') {
+                    sh 'terraform destroy --auto-approve'
+                }
+            }
+        }
+    }
+}
