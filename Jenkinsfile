@@ -121,7 +121,7 @@ pipeline {
                     set -e  # Exit on any command failure
 
                     # Configure Git user details
-                    git config user.email "bhardwajpratham7@gmail.com"
+                    git config user.email "[my-email]@gmail.com"
                     git config user.name "${GIT_USER_NAME}"
 
                     # Print file before updating
