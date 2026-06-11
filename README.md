@@ -41,19 +41,15 @@ App deployed and accessible via GKE LoadBalancer with SSL/TLS enabled through ce
 
 ```
 test-repo/
-    ├── app/
-    │     ├── index.js           → Application source code
-    │     ├── Dockerfile         → Container build instructions
-    │     └── package.json       → Node.js dependencies
-    │
     ├── gke-terraform/
-    │     ├── main.tf            → GKE cluster definition
-    │     ├── variables.tf       → Input variables
-    │     ├── outputs.tf         → Output values
-    │     └── backend.tf         → GCS remote state configuration
+    │     ├── main.tf        → GKE cluster definition
+    │     ├── provider.tf    → GCP provider configuration
+    │     └── variable.tf    → Input variables
     │
-    ├── Jenkinsfile              → CI pipeline (Pipeline 1)
-    └── Jenkinsfile-gke          → Infrastructure pipeline (Pipeline 2)
+    ├── Dockerfile           → Container build instructions
+    ├── Jenkinsfile          → CI pipeline definition (Pipeline 1)
+    |── Jenkinsfile-gke      → Infrastructure pipeline (Pipeline 2)
+    └── index.html           → Application source code
 ```
 
 ## Pipelines
